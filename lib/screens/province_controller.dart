@@ -15,7 +15,6 @@ class ProvinceController extends GetxController {
   }
 
   void fetchProvinces() async {
-   
     await _fetchData(
       'https://esgoo.net/api-tinhthanh/4/0.htm',
       onSuccess: (data) {
@@ -28,9 +27,8 @@ class ProvinceController extends GetxController {
   }
 
   void setSelectedProvince(Data province) {
-      districts.clear();
     selectedProvince.value = province;
-   
+
     fetchDistricts(province.id ?? "");
   }
 

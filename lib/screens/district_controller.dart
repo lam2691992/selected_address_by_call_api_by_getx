@@ -8,7 +8,8 @@ class DistrictController extends GetxController {
   final Dio _dio = Dio();
 
   void fetchDistricts(String provinceId) async {
-   
+    districts.value = []; // Xóa danh sách quận/huyện cũ
+
     await _fetchData(
       'https://esgoo.net/api-tinhthanh/2/$provinceId.htm',
       onSuccess: (data) {
@@ -21,7 +22,7 @@ class DistrictController extends GetxController {
   }
 
   void setSelectedDistrict(Data2 district) {
-     districts.clear(); 
+    districts.value = <Data2>[];
     selectedDistrict.value = district;
   }
 
