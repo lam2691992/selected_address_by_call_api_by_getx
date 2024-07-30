@@ -1,34 +1,26 @@
 import 'package:get/get.dart';
 import 'package:dio/dio.dart';
-import 'package:select_address/model/province_model.dart';
+import 'package:select_address/model/commune_model.dart';
 
-class ProvinceController extends GetxController {
-  var provinces = <Data>[].obs;
-  var selectedProvince = Data().obs;
-
+class CommuneController extends GetxController {
+  var communes = <Data3>[].obs; // Danh sách xã/phường Data3
+  var selectedCommune = Data3().obs; // Xã/phường đã chọn
   final Dio _dio = Dio();
 
-  @override
-  void onInit() {
-    fetchProvinces();
-    super.onInit();
-  }
-
-  void fetchProvinces() async {
+  void fetchCommunes(String districtId) async {
     await _fetchData(
-      'https://esgoo.net/api-tinhthanh/4/0.htm',
+      'https://esgoo.net/api-tinhthanh/3/$districtId.htm',
       onSuccess: (data) {
-        provinces.value = data.map<Data>((e) => Data.fromJson(e)).toList();
+        communes.value = data.map<Data3>((e) => Data3.fromJson(e)).toList();
       },
       onError: (error) {
-        Get.snackbar('Error', 'Failed to fetch provinces: $error');
+        Get.snackbar('Error', 'Failed to fetch communes: $error');
       },
     );
   }
 
-  void setSelectedProvince(Data province) {
-   
-    selectedProvince.value = province;
+  void setSelectedCommune(Data3 commune) {
+    selectedCommune.value = commune;
   }
 
   Future<void> _fetchData(

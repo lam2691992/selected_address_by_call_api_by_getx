@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'commune_controller.dart';
 import 'province_controller.dart';
 import 'district_controller.dart';
 
@@ -7,7 +8,7 @@ class Home extends StatelessWidget {
   Home({super.key});
   final ProvinceController provinceController = Get.put(ProvinceController());
   final DistrictController districtController = Get.put(DistrictController());
-
+  final CommuneController communeController = Get.put(CommuneController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +37,8 @@ class Home extends StatelessWidget {
                             children: [
                               Icon(Icons.directions_car, size: 30),
                               Text('Vận chuyển',
-                                  style: TextStyle(fontWeight: FontWeight.bold)),
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
                             ],
                           ),
                           Container(width: 40, height: 2, color: Colors.black),
@@ -199,19 +201,37 @@ class Home extends StatelessWidget {
                       }),
                     ),
                     const SizedBox(height: 15),
-                    const TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Phường/xã',
-                        hintStyle: TextStyle(fontWeight: FontWeight.w300),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                    GestureDetector(
+                      onTap: () => _showCommuneModalBottomSheet(context),
+                      child: const AbsorbPointer(
+                        child: TextField(
+                          readOnly: true,
+                          decoration: InputDecoration(
+                            hintText: 'Phường/xã',
+                            hintStyle: TextStyle(fontWeight: FontWeight.w300),
+                            border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
+                            suffixIcon: Icon(Icons.arrow_drop_down),
+                          ),
                         ),
                       ),
                     ),
                     const SizedBox(height: 80),
-                    TextButton(
-                      onPressed: () {},
-                      child: const Text('Tiếp tục'),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 17),
+                      child: Container(
+                        height: 40,
+                        width: 500,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color: const Color.fromARGB(255, 58, 157, 238)),
+                        child: TextButton(
+                          onPressed: () {},
+                          child: const Text('Tiếp tục'),
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -326,6 +346,62 @@ class Home extends StatelessWidget {
                 ),
               );
             }),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showCommuneModalBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(10))),
+      builder: (
+        BuildContext context,
+      ) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              decoration: const BoxDecoration(
+                color: Color.fromARGB(255, 199, 220, 230),
+                borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
+              ),
+              padding: const EdgeInsets.all(10),
+              child: const Row(
+                children: [
+                  Expanded(
+                      child: Center(
+                    child: Text(
+                      'Phường/xã',
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    ),
+                  ))
+                ],
+              ),
+            ),
+            Obx(() {
+              return SizedBox(
+                height: 400,
+                child: ListView.builder(
+                  itemCount: communeController.communes.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    var commune = communeController.communes[index];
+                    return ListTile(
+                      title: Text(commune.name ?? ''),
+                      onTap: () {
+                        communeController.setSelectedCommune(commune);
+                        Navigator.pop(context);
+                      },
+                    );
+                  },
+                ),
+              );
+            })
           ],
         );
       },

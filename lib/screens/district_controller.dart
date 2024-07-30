@@ -22,8 +22,8 @@ class DistrictController extends GetxController {
   }
 
   void setSelectedDistrict(Data2 district) {
-    districts.value = <Data2>[];
     selectedDistrict.value = district;
+  
   }
 
   Future<void> _fetchData(
