@@ -243,7 +243,7 @@ class Home extends StatelessWidget {
                   Expanded(
                       child: Center(
                     child: Text(
-                      'Chọn tỉnh/thành phố',
+                      'Tỉnh/thành phố',
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -253,9 +253,10 @@ class Home extends StatelessWidget {
                 ],
               ),
             ),
-            Expanded(
-              child: Obx(() {
-                return ListView.builder(
+            Obx(() {
+              return SizedBox(
+                height: 400,
+                child: ListView.builder(
                   itemCount: provinceController.provinces.length,
                   itemBuilder: (BuildContext context, int index) {
                     var province = provinceController.provinces[index];
@@ -263,14 +264,14 @@ class Home extends StatelessWidget {
                       title: Text(province.name ?? ''),
                       onTap: () {
                         provinceController.setSelectedProvince(province);
-                        districtController.fetchDistricts(province.id ?? ''); // Cập nhật danh sách quận/huyện
+                        districtController.fetchDistricts(province.id ?? '');
                         Navigator.pop(context);
                       },
                     );
                   },
-                );
-              }),
-            ),
+                ),
+              );
+            }),
           ],
         );
       },
@@ -297,7 +298,7 @@ class Home extends StatelessWidget {
                   Expanded(
                       child: Center(
                     child: Text(
-                      'Chọn quận/huyện',
+                      'Quận/huyện',
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -307,9 +308,10 @@ class Home extends StatelessWidget {
                 ],
               ),
             ),
-            Expanded(
-              child: Obx(() {
-                return ListView.builder(
+            Obx(() {
+              return SizedBox(
+                height: 400,
+                child: ListView.builder(
                   itemCount: districtController.districts.length,
                   itemBuilder: (BuildContext context, int index) {
                     var district = districtController.districts[index];
@@ -321,9 +323,9 @@ class Home extends StatelessWidget {
                       },
                     );
                   },
-                );
-              }),
-            ),
+                ),
+              );
+            }),
           ],
         );
       },
