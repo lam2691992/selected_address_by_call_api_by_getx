@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 import 'package:dio/dio.dart';
 import 'package:select_address/model/district_model.dart';
 
+import 'commune_controller.dart';
+
 class DistrictController extends GetxController {
   var districts = <Data2>[].obs; // Danh sách quận/huyện (Data2)
   var selectedDistrict = Data2().obs; // Quận/huyện đã chọn
@@ -23,7 +25,8 @@ class DistrictController extends GetxController {
 
   void setSelectedDistrict(Data2 district) {
     selectedDistrict.value = district;
-  
+     // Gọi fetchCommunes khi chọn quận/huyện
+  Get.find<CommuneController>().fetchCommunes(district.id ?? '');
   }
 
   Future<void> _fetchData(

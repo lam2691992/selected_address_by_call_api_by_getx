@@ -203,30 +203,35 @@ class Home extends StatelessWidget {
                     const SizedBox(height: 15),
                     GestureDetector(
                       onTap: () => _showCommuneModalBottomSheet(context),
-                      child: const AbsorbPointer(
-                        child: TextField(
-                          readOnly: true,
-                          decoration: InputDecoration(
-                            hintText: 'Phường/xã',
-                            hintStyle: TextStyle(fontWeight: FontWeight.w300),
-                            border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
+                      child: Obx(() {
+                        return AbsorbPointer(
+                          child: TextField(
+                            readOnly: true,
+                            decoration: InputDecoration(
+                              hintText: communeController
+                                      .selectedCommune.value.name ??
+                                  'Phường/xã',
+                              hintStyle:
+                                  const TextStyle(fontWeight: FontWeight.w300),
+                              border: const OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                              ),
+                              suffixIcon: const Icon(Icons.arrow_drop_down),
                             ),
-                            suffixIcon: Icon(Icons.arrow_drop_down),
                           ),
-                        ),
-                      ),
+                        );
+                      }),
                     ),
                     const SizedBox(height: 80),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 17),
                       child: Container(
                         height: 40,
-                        width: 500,
+                        width: 900,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
-                            color: const Color.fromARGB(255, 58, 157, 238)),
+                            color: const Color.fromARGB(255, 216, 212, 212)),
                         child: TextButton(
                           onPressed: () {},
                           child: const Text('Tiếp tục'),
@@ -339,6 +344,8 @@ class Home extends StatelessWidget {
                       title: Text(district.name ?? ''),
                       onTap: () {
                         districtController.setSelectedDistrict(district);
+                        Get.find<CommuneController>()
+                            .fetchCommunes(district.id ?? '');
                         Navigator.pop(context);
                       },
                     );
@@ -353,58 +360,56 @@ class Home extends StatelessWidget {
   }
 
   void _showCommuneModalBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(10))),
-      builder: (
-        BuildContext context,
-      ) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 199, 220, 230),
-                borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
-              ),
-              padding: const EdgeInsets.all(10),
-              child: const Row(
-                children: [
-                  Expanded(
-                      child: Center(
-                    child: Text(
-                      'Phường/xã',
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                    ),
-                  ))
-                ],
-              ),
+  showModalBottomSheet(
+    context: context,
+    shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(10))),
+    builder: (BuildContext context) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              color: Color.fromARGB(255, 199, 220, 230),
+              borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
             ),
-            Obx(() {
-              return SizedBox(
-                height: 400,
-                child: ListView.builder(
-                  itemCount: communeController.communes.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    var commune = communeController.communes[index];
-                    return ListTile(
-                      title: Text(commune.name ?? ''),
-                      onTap: () {
-                        communeController.setSelectedCommune(commune);
-                        Navigator.pop(context);
-                      },
-                    );
-                  },
-                ),
-              );
-            })
-          ],
-        );
-      },
-    );
-  }
+            padding: const EdgeInsets.all(10),
+            child: const Row(
+              children: [
+                Expanded(
+                    child: Center(
+                  child: Text(
+                    'Phường/xã',
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
+                  ),
+                )),
+              ],
+            ),
+          ),
+          Obx(() {
+            return SizedBox(
+              height: 400,
+              child: ListView.builder(
+                itemCount: communeController.communes.length,
+                itemBuilder: (BuildContext context, int index) {
+                  var commune = communeController.communes[index];
+                  return ListTile(
+                    title: Text(commune.name ?? ''),
+                    onTap: () {
+                      communeController.setSelectedCommune(commune);
+                      Navigator.pop(context);
+                    },
+                  );
+                },
+              ),
+            );
+          }),
+        ],
+      );
+    },
+  );
+}
 }

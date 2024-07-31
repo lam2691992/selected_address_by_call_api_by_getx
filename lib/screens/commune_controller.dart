@@ -6,22 +6,25 @@ class CommuneController extends GetxController {
   var communes = <Data3>[].obs; // Danh sách xã/phường Data3
   var selectedCommune = Data3().obs; // Xã/phường đã chọn
   final Dio _dio = Dio();
+void fetchCommunes(String districtId) async {
+  print('Fetching communes for districtId: $districtId'); // Log
+  await _fetchData(
+    'https://esgoo.net/api-tinhthanh/3/$districtId.htm',
+    onSuccess: (data) {
+      print('Data fetched: $data'); // Log
+      communes.value = data.map<Data3>((e) => Data3.fromJson(e)).toList();
+    },
+    onError: (error) {
+      Get.snackbar('Error', 'Failed to fetch communes: $error');
+    },
+  );
+}
 
-  void fetchCommunes(String districtId) async {
-    await _fetchData(
-      'https://esgoo.net/api-tinhthanh/3/$districtId.htm',
-      onSuccess: (data) {
-        communes.value = data.map<Data3>((e) => Data3.fromJson(e)).toList();
-      },
-      onError: (error) {
-        Get.snackbar('Error', 'Failed to fetch communes: $error');
-      },
-    );
-  }
 
-  void setSelectedCommune(Data3 commune) {
-    selectedCommune.value = commune;
-  }
+void setSelectedCommune(Data3 commune) {
+  selectedCommune.value = commune;
+}
+
 
   Future<void> _fetchData(
     String url, {
