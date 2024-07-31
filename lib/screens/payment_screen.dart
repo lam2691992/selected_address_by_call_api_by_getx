@@ -253,29 +253,49 @@ class Home extends StatelessWidget {
       context: context,
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(10))),
+      isScrollControlled: true,
       builder: (BuildContext context) {
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
               decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 199, 220, 230),
+                color: Color.fromARGB(255, 175, 185, 205),
                 borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
               ),
               padding: const EdgeInsets.all(10),
-              child: const Row(
+              child: Row(
                 children: [
-                  Expanded(
-                      child: Center(
-                    child: Text(
-                      'Tỉnh/thành phố',
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
+                  const Expanded(
+                    child: Center(
+                      child: Text(
+                        'Tỉnh/thành phố',
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      ),
                     ),
-                  )),
+                  ),
+                  IconButton(
+                    icon: const Icon(
+                      Icons.close,
+                      size: 30,
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
                 ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                decoration: InputDecoration(
+                    hintText: 'Tìm kiếm',
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10))),
               ),
             ),
             Obx(() {
@@ -308,19 +328,20 @@ class Home extends StatelessWidget {
       context: context,
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(10))),
+      isScrollControlled: true,
       builder: (BuildContext context) {
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
               decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 199, 220, 230),
+                color: Color.fromARGB(255, 175, 185, 205),
                 borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
               ),
               padding: const EdgeInsets.all(10),
-              child: const Row(
+              child: Row(
                 children: [
-                  Expanded(
+                  const Expanded(
                       child: Center(
                     child: Text(
                       'Quận/huyện',
@@ -330,7 +351,25 @@ class Home extends StatelessWidget {
                           color: Colors.black),
                     ),
                   )),
+                  IconButton(
+                    icon: const Icon(
+                      Icons.close,
+                      size: 30,
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
                 ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                decoration: InputDecoration(
+                    hintText: 'Tìm kiếm',
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10))),
               ),
             ),
             Obx(() {
@@ -364,29 +403,49 @@ class Home extends StatelessWidget {
       context: context,
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(10))),
+      isScrollControlled: true,
       builder: (BuildContext context) {
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
               decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 199, 220, 230),
+                color: Color.fromARGB(255, 175, 185, 205),
                 borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
               ),
               padding: const EdgeInsets.all(10),
-              child: const Row(
+              child: Row(
                 children: [
-                  Expanded(
-                      child: Center(
-                    child: Text(
-                      'Phường/xã',
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
+                  const Expanded(
+                    child: Center(
+                      child: Text(
+                        'Phường/xã',
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      ),
                     ),
-                  )),
+                  ),
+                  IconButton(
+                    icon: const Icon(
+                      Icons.close,
+                      size: 30,
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
                 ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                decoration: InputDecoration(
+                    hintText: 'Tìm kiếm',
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10))),
               ),
             ),
             Obx(() {
