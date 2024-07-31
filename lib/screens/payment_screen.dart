@@ -360,56 +360,56 @@ class Home extends StatelessWidget {
   }
 
   void _showCommuneModalBottomSheet(BuildContext context) {
-  showModalBottomSheet(
-    context: context,
-    shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(10))),
-    builder: (BuildContext context) {
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            decoration: const BoxDecoration(
-              color: Color.fromARGB(255, 199, 220, 230),
-              borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
-            ),
-            padding: const EdgeInsets.all(10),
-            child: const Row(
-              children: [
-                Expanded(
-                    child: Center(
-                  child: Text(
-                    'Phường/xã',
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
-                  ),
-                )),
-              ],
-            ),
-          ),
-          Obx(() {
-            return SizedBox(
-              height: 400,
-              child: ListView.builder(
-                itemCount: communeController.communes.length,
-                itemBuilder: (BuildContext context, int index) {
-                  var commune = communeController.communes[index];
-                  return ListTile(
-                    title: Text(commune.name ?? ''),
-                    onTap: () {
-                      communeController.setSelectedCommune(commune);
-                      Navigator.pop(context);
-                    },
-                  );
-                },
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(10))),
+      builder: (BuildContext context) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              decoration: const BoxDecoration(
+                color: Color.fromARGB(255, 199, 220, 230),
+                borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
               ),
-            );
-          }),
-        ],
-      );
-    },
-  );
-}
+              padding: const EdgeInsets.all(10),
+              child: const Row(
+                children: [
+                  Expanded(
+                      child: Center(
+                    child: Text(
+                      'Phường/xã',
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    ),
+                  )),
+                ],
+              ),
+            ),
+            Obx(() {
+              return SizedBox(
+                height: 400,
+                child: ListView.builder(
+                  itemCount: communeController.communes.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    var commune = communeController.communes[index];
+                    return ListTile(
+                      title: Text(commune.name ?? ''),
+                      onTap: () {
+                        communeController.setSelectedCommune(commune);
+                        Navigator.pop(context);
+                      },
+                    );
+                  },
+                ),
+              );
+            }),
+          ],
+        );
+      },
+    );
+  }
 }
